@@ -1,6 +1,6 @@
 # tld-proxy-pac
 
-The idea is to provide an easy way to setup custom TLD (Top Level Domains) for local development using docker.
+The idea is to provide an easy way to setup custom TLD (Top Level Domains) for local development.
 
 
 ### Download
@@ -26,6 +26,21 @@ tld-proxy-pac --forward-host=192.168.1.1 --forward-port=3000
 
 tld-proxy-pac -tld=local --forward-port=3000 --listen-port=4040
 ```
+
+### Enabling proxy
+
+#### Ubuntu
+
+`System Settings > Network > Network Proxy > Automatic`
+
+#### OS X
+
+`Network Preferences > Advanced > Proxies > Automatic Proxy Configuration`
+
+
+#### Windows
+
+`Settings > Network and Internet > Proxy > Use setup script`
 
 
 ## License
