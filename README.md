@@ -7,6 +7,8 @@ The idea is to provide an easy way to setup custom TLD (Top Level Domains) for l
 
 [Releases](https://github.com/krolow/tld-proxy-pac/releases)
 
+**Or** you can use the docker image: [krolow/tld-proxy-pac:latest](https://hub.docker.com/r/krolow/tld-proxy-pac/)
+
 ### Options
 
 - **-tld**: Top level domain to forward (default .dev)
