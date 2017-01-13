@@ -4,6 +4,8 @@ import (
 	"io"
 	"fmt"
 	"flag"
+	"log"
+	"net"
 	"net/http"
 	"strings"
 )
@@ -22,8 +24,9 @@ func hello(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	outboundIP := GetOutboundIP()
 	tld := flag.String("tld", "dev", "top level domain to proxy e.g: .dev")
-	forwardHost := flag.String("forward-host", "127.0.0.1", "host ip to forward")
+	forwardHost := flag.String("forward-host", outboundIP, "host ip to forward")
 	forwardPort := flag.String("forward-port", "80", "host port to forward")
 	listenPort := flag.String("listen-port", "8040", "proxy listen port")
 
@@ -37,11 +40,27 @@ func main() {
 
 	content := r.Replace(proxyTemplate)
 
-	fmt.Println("tld-proxy-pac running... http://127.0.0.1:" + *listenPort + "/")
+	fmt.Println("Forwarding " + *tld + " to: " + *forwardHost + ":" + *forwardPort)
+	fmt.Println("Outbound IP: " + outboundIP)
+	fmt.Println("tld-proxy-pac running... http://0.0.0.0:" + *listenPort + "/")
 
 	http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, content)
 	})
 
 	http.ListenAndServe(":" + *listenPort, nil)
+}
+
+
+func GetOutboundIP() string {
+	conn, err := net.Dial("udp", "8.8.8.8:80")
+	if err != nil {
+			log.Fatal(err)
+	}
+	defer conn.Close()
+
+	localAddr := conn.LocalAddr().String()
+	idx := strings.LastIndex(localAddr, ":")
+
+	return localAddr[0:idx]
 }
