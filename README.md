@@ -11,8 +11,8 @@ The idea is to provide an easy way to setup custom TLD (Top Level Domains) for l
 
 ### Options
 
-- **-tld**: Top level domain to forward (default .dev)
-- **-forward-host**: IP address that will receive the requests TLD (default 127.0.0.1)
+- **-tld**: Top level domain to forward (default .local)
+- **-forward-host**: IP address that will receive the requests TLD (default outbound ip)
 - **-forward-port**: Port that proxy should redirect requests for specific TLD (default 80)
 - **-listen-port**: Proxy server port (default 8040)
 

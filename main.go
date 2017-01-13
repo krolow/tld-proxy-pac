@@ -25,7 +25,7 @@ func hello(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	outboundIP := GetOutboundIP()
-	tld := flag.String("tld", "dev", "top level domain to proxy e.g: .dev")
+	tld := flag.String("tld", "local", "top level domain to proxy e.g: .local")
 	forwardHost := flag.String("forward-host", outboundIP, "host ip to forward")
 	forwardPort := flag.String("forward-port", "80", "host port to forward")
 	listenPort := flag.String("listen-port", "8040", "proxy listen port")
@@ -40,7 +40,7 @@ func main() {
 
 	content := r.Replace(proxyTemplate)
 
-	fmt.Println("Forwarding " + *tld + " to: " + *forwardHost + ":" + *forwardPort)
+	fmt.Println("Forwarding requests for domain ." + *tld + " to: " + *forwardHost + ":" + *forwardPort)
 	fmt.Println("Outbound IP: " + outboundIP)
 	fmt.Println("tld-proxy-pac running... http://0.0.0.0:" + *listenPort + "/")
 
